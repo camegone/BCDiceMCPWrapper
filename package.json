@@ -2,10 +2,11 @@
   "name": "bcdicemcpwrapper",
   "version": "1.0.0",
   "description": "A wrapper MCP server of BCDice - the most famous dice bot in Japan.",
-  "main": "index.js",
+  "main": "build/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "tsc && shx chmod +x build/index.js"
+    "build": "tsc && shx chmod +x build/index.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,6 @@
   "keywords": [],
   "author": "camegone",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/camegone/BCDiceMCPWrapper/issues"
   },
