@@ -9,7 +9,7 @@ const gameSystems = loader.listAvailableGameSystems();
 // initialize MCP server
 const server = new McpServer({
     name: "bcdicemcpwrapper",
-    version: "0.0.0",
+    version: "0.0.1",
     description: "A wrapper MCP server of BCDice which is a famous dice bot used in various TRPGs in Japan.",
 });
 // register tools
@@ -41,7 +41,7 @@ server.registerTool("rollDice", {
     inputSchema: {
         system: z
             .string()
-            .default("Dicebot")
+            .default("DiceBot")
             .describe("The system name which can be obtained via getGameSystemsList e.g. 'Dicebot', 'Cthulhu', or 'Cthulhu7th'"),
         diceCommand: z
             .string()
