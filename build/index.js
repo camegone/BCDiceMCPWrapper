@@ -9,7 +9,7 @@ const gameSystems = loader.listAvailableGameSystems();
 // initialize MCP server
 const server = new McpServer({
     name: "bcdicemcpwrapper",
-    version: "0.0.1",
+    version: "0.1.0",
     description: "A wrapper MCP server of BCDice which is a famous dice bot used in various TRPGs in Japan.",
 });
 // register tools
@@ -89,6 +89,53 @@ server.registerTool("rollDice", {
                 {
                     type: "text",
                     text: `Error executing dice roll: ${error instanceof Error ? error.message : String(error)}`,
+                },
+            ],
+        };
+    }
+});
+server.registerTool("getDescription", {
+    description: "Get the description of a game system.",
+    inputSchema: {
+        system: z
+            .string()
+            .default("DiceBot")
+            .describe("The system name which can be obtained via getGameSystemsList e.g. 'Dicebot', 'Cthulhu', or 'Cthulhu7th'"),
+    },
+}, async (args) => {
+    try {
+        const gameSystem = await loader.dynamicLoad(args.system);
+        if (!gameSystem) {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Game system "${args.system}" not found.`,
+                    },
+                ],
+            };
+        }
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: gameSystem.HELP_MESSAGE,
+                },
+                {
+                    type: "text",
+                    text: gameSystem.COMMAND_PATTERN.source,
+                },
+            ],
+        };
+    }
+    catch (error) {
+        return {
+            isError: true,
+            content: [
+                {
+                    type: "text",
+                    text: `Error getting game system description: ${error instanceof Error ? error.message : String(error)}`,
                 },
             ],
         };
