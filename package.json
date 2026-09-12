@@ -17,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/camegone/BCDiceMCPWrapper/issues"
   },
-  "homepage": "https://github.com/camegone/BCDiceMCPWrapper#readme"
+  "homepage": "https://github.com/camegone/BCDiceMCPWrapper#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "bcdice": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "shx": "^0.4.0",
+    "typescript": "^7.0.2"
+  }
 }
