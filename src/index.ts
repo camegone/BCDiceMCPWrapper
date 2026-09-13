@@ -59,7 +59,7 @@ server.registerTool(
 server.registerTool(
     "getGameSystemsList",
     {
-        description: "Get a list of all supported game systems.",
+        description: "Get a list of all supported game systems on BCDice.",
         inputSchema: z.object({}),
     },
     () => {
@@ -95,7 +95,7 @@ server.registerTool(
                     content: [
                         {
                             type: "text" as const,
-                            text: `Game system "${args.system}" not found.`,
+                            text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
                         },
                     ],
                 };
@@ -159,7 +159,7 @@ server.registerTool(
                     content: [
                         {
                             type: "text" as const,
-                            text: `Game system "${args.system}" not found.`,
+                            text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
                         },
                     ],
                 };
