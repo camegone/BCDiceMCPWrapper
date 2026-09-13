@@ -20,7 +20,17 @@
     "type": "git",
     "url": "git+https://github.com/camegone/BCDiceMCPWrapper.git"
   },
-  "keywords": [],
+  "keywords": [
+    "mcp",
+    "dice",
+    "trpg",
+    "bcdice",
+    "rng",
+    "random",
+    "rpg",
+    "dice-bot",
+    "mcp-server"
+  ],
   "author": "camegone",
   "license": "BSD-3-Clause",
   "bugs": {
