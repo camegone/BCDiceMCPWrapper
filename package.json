@@ -1,5 +1,5 @@
 {
-  "name": "bcdicemcpwrapper",
+  "name": "@camegone/bcdice-mcp",
   "version": "0.3.1",
   "description": "A wrapper MCP server of BCDice - the most famous dice bot in Japan.",
   "main": "build/index.js",
