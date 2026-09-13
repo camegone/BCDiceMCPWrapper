@@ -41,7 +41,7 @@ server.registerTool("getMCPServerVersion", {
     };
 });
 server.registerTool("getGameSystemsList", {
-    description: "Get a list of all supported game systems.",
+    description: "Get a list of all supported game systems on BCDice.",
     inputSchema: z.object({}),
 }, () => {
     const list = gameSystems.map((system) => ({
@@ -70,7 +70,7 @@ server.registerTool("rollDice", {
                 content: [
                     {
                         type: "text",
-                        text: `Game system "${args.system}" not found.`,
+                        text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
                     },
                 ],
             };
@@ -126,7 +126,7 @@ server.registerTool("getDescription", {
                 content: [
                     {
                         type: "text",
-                        text: `Game system "${args.system}" not found.`,
+                        text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
                     },
                 ],
             };
