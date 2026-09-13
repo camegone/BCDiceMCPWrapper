@@ -1,6 +1,7 @@
 import { Version } from "bcdice";
+import pkg from "../package.json" with { type: "json" };
 export const BCDICE_VERSION = Version;
-export const MCP_SERVER_VERSION = "0.2.2";
+export const MCP_SERVER_VERSION = pkg.version;
 // Copied from HELP_MESSAGE of DiceBot and modified for MCP
 // Last updated 2026-09-14
 export const COMMON_DICE_COMMANDS = `

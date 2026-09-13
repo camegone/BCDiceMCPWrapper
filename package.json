@@ -1,6 +1,6 @@
 {
   "name": "bcdicemcpwrapper",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A wrapper MCP server of BCDice - the most famous dice bot in Japan.",
   "main": "build/index.js",
   "type": "module",
