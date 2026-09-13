@@ -1,7 +1,21 @@
 import { Version } from "bcdice";
 export const BCDICE_VERSION = Version;
-export const MCP_SERVER_VERSION = "0.1.2";
+export const MCP_SERVER_VERSION = "0.1.3";
+// Copied from HELP_MESSAGE of DiceBot and modified for MCP
+// Last updated 2026-09-14
 export const COMMON_DICE_COMMANDS = `
+=== 基本のダイスコマンド ===
+1D6 ： 6面ダイス1個を振る
+2D6 ： 6面ダイス2個を振って合計する
+1D100 ： 100面ダイス1個を振る
+
+=== 四則演算と組み合わせ ===
+1D4+1 ： 4面ダイス1個を振って1を加算する
+1D4-1 ： 4面ダイス1個を振って1を減算する
+1D4*2 ： 4面ダイス1個を振って2倍する
+1D4/2 ： 4面ダイス1個を振って2で除算する
+
+=== 発展的なコマンド ===
 3D6+1>=9 ：3d6+1で目標値9以上かの判定
 1D100<=50 ：D100で50％目標の下方ロールの例
 3U6[5] ：3d6のダイス目が5以上の場合に振り足しして合計する(上方無限)

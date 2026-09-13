@@ -2,7 +2,7 @@ import { Version } from "bcdice";
 
 export const BCDICE_VERSION = Version;
 
-export const MCP_SERVER_VERSION = "0.1.2";
+export const MCP_SERVER_VERSION = "0.1.3";
 
 // Copied from HELP_MESSAGE of DiceBot and modified for MCP
 // Last updated 2026-09-14
