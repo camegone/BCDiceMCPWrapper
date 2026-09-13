@@ -91,7 +91,8 @@ server.registerTool(
                     content: [
                         {
                             type: "text" as const,
-                            text: `Dice command "${args.diceCommand}" returned no result for game system "${args.system}".`,
+                            text: `Dice command "${args.diceCommand}" returned no result for game system "${args.system}". Available dice commands:
+${gameSystem.HELP_MESSAGE}`,
                         },
                     ],
                 };
