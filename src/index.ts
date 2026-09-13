@@ -39,6 +39,24 @@ server.registerTool(
 );
 
 server.registerTool(
+    "getMCPServerVersion",
+    {
+        description: "Get the version of this MCP server.",
+        inputSchema: z.object({}),
+    },
+    () => {
+        return {
+            content: [
+                {
+                    type: "text" as const,
+                    text: `MCP server version: ${MCP_SERVER_VERSION}`,
+                },
+            ],
+        };
+    }
+);
+
+server.registerTool(
     "getGameSystemsList",
     {
         description: "Get a list of all supported game systems.",
