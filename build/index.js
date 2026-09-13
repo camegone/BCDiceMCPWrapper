@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { DynamicLoader, UserDefinedDiceTable } from "bcdice";
+import { DynamicLoader, UserDefinedDiceTable, } from "bcdice";
 import { MCP_SERVER_VERSION, BCDICE_VERSION, COMMON_DICE_COMMANDS } from "./constants.js";
 // initialize BCDice
 const loader = new DynamicLoader();
@@ -64,17 +64,6 @@ server.registerTool("rollDice", {
 }, async (args) => {
     try {
         const gameSystem = await loader.dynamicLoad(args.system);
-        if (!gameSystem) {
-            return {
-                isError: true,
-                content: [
-                    {
-                        type: "text",
-                        text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
-                    },
-                ],
-            };
-        }
         const result = gameSystem.eval(args.diceCommand);
         if (!result) {
             return {
@@ -98,15 +87,28 @@ ${gameSystem.HELP_MESSAGE}`,
         };
     }
     catch (error) {
-        return {
-            isError: true,
-            content: [
-                {
-                    type: "text",
-                    text: `Error executing dice roll: ${error instanceof Error ? error.message : String(error)}`,
-                },
-            ],
-        };
+        if (error instanceof Error && error.message.includes("GameSystem is not found")) {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
+                    },
+                ],
+            };
+        }
+        else {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Error executing dice roll: ${error instanceof Error ? error.message : String(error)}`,
+                    },
+                ],
+            };
+        }
     }
 });
 server.registerTool("getDescription", {
@@ -145,15 +147,28 @@ server.registerTool("getDescription", {
         };
     }
     catch (error) {
-        return {
-            isError: true,
-            content: [
-                {
-                    type: "text",
-                    text: `Error getting game system description: ${error instanceof Error ? error.message : String(error)}`,
-                },
-            ],
-        };
+        if (error instanceof Error && error.message.includes("GameSystem is not found")) {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Game system "${args.system}" not found. Use getGameSystemsList() to get a list of supported game systems.`,
+                    },
+                ],
+            };
+        }
+        else {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Error getting game system description: ${error instanceof Error ? error.message : String(error)}`,
+                    },
+                ],
+            };
+        }
     }
 });
 server.registerTool("rollUserDefinedTable", {
