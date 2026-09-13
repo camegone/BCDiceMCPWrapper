@@ -4,6 +4,12 @@
   "description": "A wrapper MCP server of BCDice - the most famous dice bot in Japan.",
   "main": "build/index.js",
   "type": "module",
+  "bin": {
+    "bcdicemcpwrapper": "build/index.js"
+  },
+  "files": [
+    "build/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && shx chmod +x build/index.js"
