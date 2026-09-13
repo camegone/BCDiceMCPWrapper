@@ -13,7 +13,7 @@ const gameSystems = loader.listAvailableGameSystems();
 const server = new McpServer(
     {
         name: "bcdicemcpwrapper",
-        version: "0.1.0",
+        version: "0.1.1",
         description: "A wrapper MCP server of BCDice which is a famous dice bot used in various TRPGs in Japan.",
     }
 );
@@ -60,7 +60,7 @@ server.registerTool(
             system: z
                 .string()
                 .default("DiceBot")
-                .describe("The system name which can be obtained via getGameSystemsList e.g. 'Dicebot', 'Cthulhu', or 'Cthulhu7th'"),
+                .describe("The system name which can be obtained via getGameSystemsList e.g. 'DiceBot', 'Cthulhu', or 'Cthulhu7th'"),
             diceCommand: z
                 .string()
                 .describe("The dice expression e.g. '1d100', '3d6', '2d6+4'"),
@@ -126,7 +126,7 @@ server.registerTool(
             system: z
                 .string()
                 .default("DiceBot")
-                .describe("The system name which can be obtained via getGameSystemsList e.g. 'Dicebot', 'Cthulhu', or 'Cthulhu7th'"),
+                .describe("The system name which can be obtained via getGameSystemsList e.g. 'DiceBot', 'Cthulhu', or 'Cthulhu7th'"),
         },
     },
     async (args) => {
@@ -149,11 +149,11 @@ server.registerTool(
                 content: [
                     {
                         type: "text" as const,
-                        text: gameSystem.HELP_MESSAGE,
+                        text: `Game system "${args.system}" help message:\n${gameSystem.HELP_MESSAGE}`,
                     },
                     {
                         type: "text" as const,
-                        text: gameSystem.COMMAND_PATTERN.source,
+                        text: `Game system "${args.system}" command pattern (regex):\n${gameSystem.COMMAND_PATTERN.source}`,
                     },
                 ],
             };
