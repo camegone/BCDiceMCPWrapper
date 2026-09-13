@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { DynamicLoader } from "bcdice";
+import { DynamicLoader, UserDefinedDiceTable } from "bcdice";
 import { MCP_SERVER_VERSION, BCDICE_VERSION, COMMON_DICE_COMMANDS } from "./constants.js";
 // initialize BCDice
 const loader = new DynamicLoader();
@@ -23,6 +23,19 @@ server.registerTool("getDiceBotVersion", {
             {
                 type: "text",
                 text: `BCDice version: ${BCDICE_VERSION}`,
+            },
+        ],
+    };
+});
+server.registerTool("getMCPServerVersion", {
+    description: "Get the version of this MCP server.",
+    inputSchema: z.object({}),
+}, () => {
+    return {
+        content: [
+            {
+                type: "text",
+                text: `MCP server version: ${MCP_SERVER_VERSION}`,
             },
         ],
     };
@@ -138,6 +151,58 @@ server.registerTool("getDescription", {
                 {
                     type: "text",
                     text: `Error getting game system description: ${error instanceof Error ? error.message : String(error)}`,
+                },
+            ],
+        };
+    }
+});
+server.registerTool("rollUserDefinedTable", {
+    description: `Roll a userdefined table such as:
+        テスト表
+        1D6
+        1:いち
+        2:に
+        3:さん
+        4:し
+        5:ご
+        6:ろく
+        `,
+    inputSchema: {
+        tableText: z
+            .string()
+            .describe("The userdefined table to roll. See the example above."),
+    },
+}, async (args) => {
+    try {
+        const userDefinedTable = new UserDefinedDiceTable(args.tableText);
+        const result = userDefinedTable.roll();
+        if (!result) {
+            return {
+                isError: true,
+                content: [
+                    {
+                        type: "text",
+                        text: `Userdefined table "${args.tableText}" returned no result.`,
+                    },
+                ],
+            };
+        }
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: result.text,
+                },
+            ],
+        };
+    }
+    catch (error) {
+        return {
+            isError: true,
+            content: [
+                {
+                    type: "text",
+                    text: `Error rolling userdefined table: ${error instanceof Error ? error.message : String(error)}`,
                 },
             ],
         };
