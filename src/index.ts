@@ -3,7 +3,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { DynamicLoader , Version } from "bcdice";
+import { DynamicLoader } from "bcdice";
+import { MCP_SERVER_VERSION, BCDICE_VERSION, COMMON_DICE_COMMANDS } from "./constants.js";
 
 // initialize BCDice
 const loader = new DynamicLoader();
@@ -13,14 +14,14 @@ const gameSystems = loader.listAvailableGameSystems();
 const server = new McpServer(
     {
         name: "bcdicemcpwrapper",
-        version: "0.1.1",
-        description: "A wrapper MCP server of BCDice which is a famous dice bot used in various TRPGs in Japan.",
+        version: MCP_SERVER_VERSION,
+        description: "A wrapper MCP server of BCDice which is a famous dice bot used in various TRPGs in Japan. Capable of rolling dice (e.g. '1d100', '2d6+4') and getting information of game systems.",
     }
 );
 
 // register tools
 server.registerTool(
-    "getVersion",
+    "getDiceBotVersion",
     {
         description: "Get the version of BCDice.",
         inputSchema: z.object({}),
@@ -30,7 +31,7 @@ server.registerTool(
             content: [
                 {
                     type: "text" as const,
-                    text: `BCDice version: ${ Version }`,
+                    text: `BCDice version: ${ BCDICE_VERSION }`,
                 },
             ],
         };
@@ -63,7 +64,7 @@ server.registerTool(
                 .describe("The system name which can be obtained via getGameSystemsList e.g. 'DiceBot', 'Cthulhu', or 'Cthulhu7th'"),
             diceCommand: z
                 .string()
-                .describe("The dice expression e.g. '1d100', '3d6', '2d6+4'"),
+                .describe(`The dice expression e.g. '1d100', '3d6', '2d6+4'. You must see system-specific dice command from getDescription(system) once.\nCommon dice commands:\n${COMMON_DICE_COMMANDS}`),
         },
     },
     async (args) => {
